@@ -53,3 +53,14 @@ contract Context is IContext, Owned {
     }
 
 }
+
+contract ContextDependent {
+
+    IContext internal _context;
+
+    constructor (IContext context) internal {
+        require(context != address(0), 'context can not be address(0)');
+        _context = context;
+    }
+
+}

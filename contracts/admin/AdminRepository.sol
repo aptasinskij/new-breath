@@ -1,21 +1,21 @@
 pragma solidity 0.4.25;
 
-import './../common/Named.sol';
-import './../common/Mortal.sol';
-import {AdminPersistence, AdminDatabase} from './AdminPersistence.sol';
+import "./../common/Named.sol";
+import "./../common/Mortal.sol";
+import "./../common/Database.sol";
 
-import './../common/Database.sol';
-
-contract AdminDatabase is Database {}
+contract AdminDatabase is Database {
+    
+}
 
 library AdminPersistence {
     
     ///ERROR_MESSAGES
-    string constant NOT_EXISTS = 'AdminPersistence: not exists';
-    string constant ALREADY_EXISTS = 'AdminPersistence: already exists';
+    string constant NOT_EXISTS = "AdminPersistence: not exists";
+    string constant ALREADY_EXISTS = "AdminPersistence: already exists";
 
     ///HASH_FIELDS
-    string constant INDEX_VALUE = 'admin.index';
+    string constant INDEX_VALUE = "admin.index";
     bytes32 constant INDEX = keccak256(abi.encode(INDEX_VALUE));
 
     struct Admin {
@@ -32,7 +32,7 @@ library AdminPersistence {
     }
     
     function isAdmin(AdminDatabase self, address admin) internal view returns (bool) {
-        require(admin != address(0));
+        require(admin != address(0), NOT_EXISTS);
         if (self.getUintValue(INDEX) == 0) return false;
         uint index = self.getUintValue(keccak256(abi.encodePacked(INDEX_VALUE, admin)));
         return self.getAddressValue(keccak256(abi.encodePacked(INDEX_VALUE, index))) == admin;
@@ -78,19 +78,19 @@ contract IAdminRepository {
 
 }
 
-contract AdminRepository is IAdminRepository, Mortal, Named('admin-repository') {
+contract AdminRepository is IAdminRepository, Mortal, Named("admin-repository") {
     
     using AdminPersistence for AdminDatabase;
 
     AdminDatabase private _adminDatabase;
 
     modifier onlyAdmin {
-        require(isAdmin(msg.sender), 'Admin: only admin allowed');
+        require(isAdmin(msg.sender), "Admin: only admin allowed");
         _;
     }
 
     constructor (address adminDatabase) public {
-        require(adminDatabase != address(0));
+        require(adminDatabase != address(0), "Empty address not allowed");
         _adminDatabase = AdminDatabase(adminDatabase);
     }
 

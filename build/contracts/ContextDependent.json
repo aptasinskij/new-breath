@@ -1,38 +1,16 @@
 {
-  "contractName": "IContext",
+  "contractName": "ContextDependent",
   "abi": [
     {
-      "constant": false,
       "inputs": [
         {
-          "name": "namedContract",
+          "name": "context",
           "type": "address"
         }
       ],
-      "name": "register",
-      "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "name",
-          "type": "string"
-        }
-      ],
-      "name": "get",
-      "outputs": [
-        {
-          "name": "contractAddress",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
+      "type": "constructor"
     }
   ],
   "metadata": "",
@@ -4544,7 +4522,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-11T12:34:33.568Z",
+  "updatedAt": "2019-05-11T12:34:33.562Z",
   "devdoc": {
     "methods": {}
   },
