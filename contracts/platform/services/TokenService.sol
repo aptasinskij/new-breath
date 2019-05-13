@@ -1,10 +1,10 @@
 pragma solidity 0.4.25;
 
-import './../common/SafeMath.sol';
-import './../common/Named.sol';
-import './../common/Mortal.sol';
-import './../common/Database.sol';
-import './../access/ControlledByAdmin.sol';
+import './../../common/SafeMath.sol';
+import './../../common/Named.sol';
+import './../../common/Mortal.sol';
+import './../../common/Database.sol';
+import './../../access/ControlledByAdmin.sol';
 
 contract TokenDatabase is Database {
 
